@@ -10,9 +10,9 @@ TP de groupe qui a comme objectif de faire communiqué 2 machines via des trames
 
 # Répartition des rôles
 
-@MDulche & @SarahGarf s'occupent du traitement de la tram en adéquoition avec le cahier des charges fourni par notre intervenant @fabrice1618
+@MDulche & @SarahGarf s'occupent du traitement de la trame en adéquation avec le cahier des charges fourni par notre intervenant @fabrice1618
 
-@pascalmaxime fait la partie bonus du TP, c'est à dire un chat chiffré.
+@pascalmaxime fait la partie bonus du TP, c'est-à-dire un chat chiffré.
 
 @Teo-Gojkovic s'occupe de la communication entre client & serveur
 
