@@ -5,19 +5,17 @@
 #include <unistd.h>
 
 #define LENGTH 28  // Définir une taille de buffer pour fgets
+#define TAILLE sizeof(tableau) / sizeof(int)
 #define PORT 1618
 #define BUFFER_SIZE 1024
 
-int min(int *list, int lenght) {
-
-    if (lenght <= 0) return -1; // Sert à verifier si la taille est valide
+int min(int *tableau) {
 
     int index = 0;
-    
 
-    for (int i = 1; i < lenght; i++)
+    for (int i = 1; i < TAILLE-1; i++)
     {
-        if (list[i] < list[index])
+        if (tableau[i] < tableau[index] && tableau[i] != -1)
         {
             index = i;
         }
@@ -27,16 +25,14 @@ int min(int *list, int lenght) {
     return index;
 }
 
-int max(int *list, int lenght) {
-
-    if (lenght <= 0) return -1; // Sert à verifier si la taille est valide
+int max(int *tableau) {
 
     int index = 0;
     
 
-    for (int i = 1; i < lenght; i++)
+    for (int i = 1; i < (sizeof(tableau) / sizeof(int))-1; i++)
     {
-        if (list[i] > list[index])
+        if (tableau[i] > tableau[index])
         {
             index = i;
         }
@@ -44,6 +40,20 @@ int max(int *list, int lenght) {
     }
     
     return index;
+}
+
+int calcul_moyenne(int *tableau) {
+    int somme = 0, count = 0;
+    
+
+    for (int i = 0; i < (sizeof(tableau) / sizeof(int))-1; i++) {
+        if (tableau[i] != -1){
+            somme += tableau[i];
+            count++;
+        }
+    }
+
+    return (float)somme / count;
 }
 
 void IsolatioNumber(char *chaine, int *tableau) {
@@ -89,15 +99,21 @@ void treatment(char *buffer) {
 
     int number = 0, index =0 ,tableau[8];
 
-    char chaine[LENGTH];  // Buffer pour stocker une ligne
-
-    IsolatioNumber(chaine, tableau);
+    IsolatioNumber(buffer, tableau);
 
     for (int i = 0; i < (sizeof(tableau) / sizeof(int))-1; i++)
     {
-        
         printf("%d\n", tableau[i]);
     }
+
+    for (int j = 0; j < 2; j++)
+    {
+        tableau[min(tableau)] = -1;
+        tableau[max(tableau)] = -1;
+    }
+    
+
+    printf("%d\n", calcul_moyenne(tableau));
 }
 
 int main() {
