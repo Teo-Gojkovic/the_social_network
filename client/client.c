@@ -8,6 +8,8 @@
 #define PORT 1618
 #define NUM_COUNT 8
 #define MAX_VALUE 2023
+//#define SERVER_IP "172.16.20.11" // PC Sarah
+#define SERVER_IP "127.0.0.1"
 
 int main() {
     int sockfd;
@@ -25,7 +27,7 @@ int main() {
     memset(&server_addr, 0, sizeof(server_addr));
     server_addr.sin_family = AF_INET;
     server_addr.sin_port = htons(PORT);
-    server_addr.sin_addr.s_addr = inet_addr("172.16.20.11"); // Replace with the target IP address
+    server_addr.sin_addr.s_addr = inet_addr(SERVER_IP); 
 
     // Generate random numbers
     srand(time(NULL));
@@ -37,6 +39,8 @@ int main() {
     snprintf(buffer, sizeof(buffer), "%d,%d,%d,%d,%d,%d,%d,%d",
              numbers[0], numbers[1], numbers[2], numbers[3],
              numbers[4], numbers[5], numbers[6], numbers[7]);
+
+    printf("Sending to IP: %s, Port: %d\n", SERVER_IP, PORT);
 
     // Send the message
     if (sendto(sockfd, buffer, strlen(buffer), 0, (const struct sockaddr *)&server_addr, sizeof(server_addr)) < 0) {
