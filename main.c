@@ -43,3 +43,40 @@ int main() {
     fclose(inputFile);
     return 0;
 }
+int min(int *list, int lenght) {
+
+    if (lenght <= 0) return -1; // Sert à verifier si la taille est valide
+
+    int index = 0;
+    
+
+    for (int i = 1; i < lenght; i++)
+    {
+        if (list[i] < list[index])
+        {
+            index = i;
+        }
+        
+    }
+    
+    return index;
+}
+
+int max(int *list, int lenght) {
+
+    if (lenght <= 0) return -1; // Sert à verifier si la taille est valide
+
+    int index = 0;
+    
+
+    for (int i = 1; i < lenght; i++)
+    {
+        if (list[i] > list[index])
+        {
+            index = i;
+        }
+        
+    }
+    
+    return index;
+}
