@@ -1,39 +1,63 @@
-# Projet Client-Serveur UDP avec Chiffrement César
+# 📡 Projet Client-Serveur UDP avec Chiffrement de César
 
-## Description
+## 📝 Description
+Ce projet consiste en deux programmes en langage C : un **client** et un **serveur**. Ces programmes communiquent entre eux via le protocole UDP. Les messages échangés sont chiffrés et déchiffrés à l'aide du **chiffrement de César**, un algorithme simple de cryptographie par décalage.
 
-Ce projet implémente une communication **UDP** entre un **serveur** et un **client**. Le serveur écoute les messages envoyés par le client, déchiffre ces messages, traite la demande et renvoie une réponse chiffrée. Le client chiffre ses messages avant de les envoyer au serveur, puis déchiffre la réponse reçue. Le chiffrement est effectué à l'aide de l'algorithme de **César**, où chaque caractère est décalé de 3 positions dans la table ASCII.
+## 🗂️ Structure du projet
+```
+.
+├── client_cesar.c
+├── serveur_cesar.c
+└── README.md
+```
 
-## Fonctionnalités
+* `client_cesar.c` : Code source du programme client.
+* `serveur_cesar.c` : Code source du programme serveur.
+* `README.md` : Documentation du projet.
 
-- **Serveur UDP** qui :
-  - Écoute les messages envoyés par le client.
-  - Déchiffre le message reçu.
-  - Envoie une réponse chiffrée au client.
-  
-- **Client UDP** qui :
-  - Chiffre son message avant de l'envoyer au serveur.
-  - Déchiffre la réponse reçue du serveur.
+## ⚙️ Compilation
+Utilisez le compilateur `gcc` pour compiler les programmes.
 
-- **Chiffrement César** (décalage de 3 caractères ASCII) utilisé pour chiffrer et déchiffrer les messages.
+### Compilation du serveur
+```bash
+gcc -o serveur_cesar serveur_cesar.c
+```
 
-## Prérequis
+### Compilation du client
+```bash
+gcc -o client_cesar client_cesar.c
+```
 
-- Un environnement **Linux** (Ubuntu recommandé).
-- Le compilateur **GCC** installé pour compiler les fichiers C.
+## 🚀 Exécution
 
-## Compilation et Exécution
+### Lancer le serveur
+```bash
+./serveur_cesar
+```
+Le serveur sera en attente de messages sur le port **12345**.
 
-### Étapes pour compiler et exécuter le programme :
+### Lancer le client
+```bash
+./client_cesar
+```
+Le client enverra des messages au serveur à l'adresse IP **127.0.0.1** sur le port **12345**.
 
-1. **Cloner le projet ou télécharger les fichiers `serveur.c` et `client.c`**.
+## 🔐 Chiffrement de César
+Le chiffrement de César est un algorithme de substitution simple qui consiste à décaler chaque caractère d'un message d'un certain nombre de positions dans l'alphabet.
 
-2. **Compiler les fichiers C :**
+Dans ce projet, le décalage utilisé est de **3** positions.
 
-   Dans un terminal, exécute les commandes suivantes pour compiler le serveur et le client :
+### Exemple
+* Message original : `Bonjour`
+* Message chiffré : `Erqmrxu`
 
-   ```bash
-   gcc serveur.c -o serveur
-   gcc client.c -o client
+Le chiffrement et le déchiffrement sont gérés par des fonctions dédiées dans le code source.
 
-#### PASCAL Maxime
+## 📌 Remarques
+* Le port utilisé pour la communication est **12345**. Vous pouvez le modifier dans les fichiers source si nécessaire.
+* Assurez-vous que le port choisi est ouvert sur votre pare-feu pour permettre la communication entre le client et le serveur.
+* Le programme est conçu pour une utilisation en local (localhost). Pour une utilisation sur un réseau, adaptez l'adresse IP en conséquence.
+
+## 📚 Ressources supplémentaires
+* [Documentation sur le protocole UDP](https://fr.wikipedia.org/wiki/User_Datagram_Protocol)
+* [Explication du chiffrement de César](https://fr.wikipedia.org/wiki/Chiffrement_par_d%C3%A9calage)
