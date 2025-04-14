@@ -95,25 +95,33 @@ void IsolatioNumber(char *chaine, int *tableau) {
     printf("\n");
 }
 
-void treatment(char *buffer) {
+void convertBufferToIntArray(char *buffer, int *tableau, int *size) {
+    int number = 0, index = 0, i = 0;
 
-    int number = 0, index =0 ,tableau[8];
+    while (buffer[index] != '\0') {
+        if (buffer[index] >= '0' && buffer[index] <= '9') {
+            number = number * 10 + (buffer[index] - '0');
+        } else if (buffer[index] == ',') {
+            tableau[i++] = number;
+            number = 0;
+        }
+        index++;
+    }
+    tableau[i++] = number; // Ajouter le dernier nombre
+    *size = i; // Mettre à jour la taille du tableau
+}
 
-    IsolatioNumber(buffer, tableau);
-
-    for (int i = 0; i < (sizeof(tableau) / sizeof(int))-1; i++)
-    {
+void treatment(int *tableau, int size) {
+    for (int i = 0; i < size; i++) {
         printf("%d\n", tableau[i]);
     }
 
-    for (int j = 0; j < 2; j++)
-    {
+    for (int j = 0; j < 2; j++) {
         tableau[min(tableau)] = -1;
         tableau[max(tableau)] = -1;
     }
-    
 
-    printf("%d\n", calcul_moyenne(tableau));
+    printf("Moyenne : %d\n", calcul_moyenne(tableau));
 }
 
 int main() {
@@ -154,7 +162,14 @@ int main() {
 
         buffer[n] = '\0'; // Null-terminate the received data
         printf("Received IP tram: %s\n", buffer);
-        treatment(buffer);
+
+        // Convertir buffer en tableau d'entiers
+        int tableau[BUFFER_SIZE];
+        int size = 0;
+        convertBufferToIntArray(buffer, tableau, &size);
+
+        // Appel de la fonction treatment avec le tableau d'entiers
+        treatment(tableau, size);
     }
 
     // Close the socket (unreachable in this case)
