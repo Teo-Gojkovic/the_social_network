@@ -6,13 +6,13 @@ Ce projet consiste en deux programmes en langage C : un **client** et un **serve
 ## 🗂️ Structure du projet
 ```
 chiffrement
-├── client_cesar.c
-├── serveur_cesar.c
+├── clientUDP.c
+├── serveurUDP.c
 └── README.md
 ```
 
-* `client_cesar.c` : Code source du programme client.
-* `serveur_cesar.c` : Code source du programme serveur.
+* `clientUDP.c` : Code source du programme client.
+* `serveurUDP.c` : Code source du programme serveur.
 * `README.md` : Documentation du projet.
 
 ## ⚙️ Compilation
@@ -20,12 +20,12 @@ Utilisez le compilateur `gcc` pour compiler les programmes.
 
 ### Compilation du serveur
 ```bash
-gcc -o serveur_cesar serveur_cesar.c
+gcc -o serveurUDP serveurUDP.c
 ```
 
 ### Compilation du client
 ```bash
-gcc -o client_cesar client_cesar.c
+gcc -o clientUDP clientUDP.c
 ```
 
 ## 🚀 Exécution
