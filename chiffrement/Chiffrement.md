@@ -32,13 +32,13 @@ gcc -o clientUDP clientUDP.c
 
 ### Lancer le serveur
 ```bash
-./serveur_cesar
+./serveurUDP
 ```
 Le serveur sera en attente de messages sur le port **12345**.
 
 ### Lancer le client
 ```bash
-./client_cesar
+./clientUDP
 ```
 Le client enverra des messages au serveur à l'adresse IP **127.0.0.1** sur le port **12345**.
 
