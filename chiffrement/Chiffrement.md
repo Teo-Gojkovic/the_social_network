@@ -5,7 +5,7 @@ Ce projet consiste en deux programmes en langage C : un **client** et un **serve
 
 ## 🗂️ Structure du projet
 ```
-.
+chiffrement
 ├── client_cesar.c
 ├── serveur_cesar.c
 └── README.md
