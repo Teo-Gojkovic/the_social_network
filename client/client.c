@@ -8,8 +8,8 @@
 #define PORT 1618 // Port number given by Guigui
 #define NUM_COUNT 8 
 #define MAX_VALUE 2023
-#define SERVER_IP "172.16.20.11" // PC Sarah
-//#define SERVER_IP "127.0.0.1"
+//#define SERVER_IP "172.16.20.11" // PC Sarah
+#define SERVER_IP "127.0.0.1"
 
 int main() {
     int sockfd;
