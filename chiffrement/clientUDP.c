@@ -1,67 +1,68 @@
-// PASCAL Maxime
 #include <stdio.h>
-#include <stdlib.h>
 #include <string.h>
+#include <stdlib.h>
 #include <unistd.h>
 #include <arpa/inet.h>
-#define PORT 8080
-#define BUFFER_SIZE 1024
-#define CESAR 3 // Clé de chiffrement
 
-// Chiffrement César
-void cesarEncrypt(char *text, int cesar) {
-    for (int i = 0; text[i] != '\0'; i++) {
-        if (text[i] >= 32 && text[i] <= 126) {
-            text[i] = ((text[i] - 32 + cesar) % 95) + 32;
+#define TAILLE_MESSAGE 1024
+#define DECALAGE_CESAR 3
+
+// Fonction pour chiffrer un message avec le chiffrement de César
+void chiffrer_cesar(char *message) {
+    for (int i = 0; message[i] != '\0'; i++) {
+        if (message[i] >= 32 && message[i] <= 126) {
+            message[i] = ((message[i] - 32 + DECALAGE_CESAR) % 95) + 32;
         }
     }
 }
 
-// Déchiffrement César
-void cesarDecrypt(char *text, int cesar) {
-    for (int i = 0; text[i] != '\0'; i++) {
-        if (text[i] >= 32 && text[i] <= 126) {
-            text[i] = ((text[i] - 32 - cesar + 95) % 95) + 32;
+// Fonction pour déchiffrer un message avec le chiffrement de César
+void dechiffrer_cesar(char *message) {
+    for (int i = 0; message[i] != '\0'; i++) {
+        if (message[i] >= 32 && message[i] <= 126) {
+            message[i] = ((message[i] - 32 - DECALAGE_CESAR + 95) % 95) + 32;
         }
     }
 }
 
 int main() {
-    int sockfd;
-    struct sockaddr_in servaddr;
-    char buffer[BUFFER_SIZE];
-    
+    int socket_desc;
+    struct sockaddr_in adresse_serveur;
+    char message_envoye[TAILLE_MESSAGE];
+    char message_recu[TAILLE_MESSAGE];
+    socklen_t taille_adresse = sizeof(struct sockaddr_in);
+
     // Création du socket UDP
-    if ((sockfd = socket(AF_INET, SOCK_DGRAM, 0)) < 0) {
-        perror("Erreur de socket");
+    socket_desc = socket(AF_INET, SOCK_DGRAM, 0);
+    if (socket_desc < 0) {
+        perror("Erreur lors de la création du socket");
         exit(EXIT_FAILURE);
     }
-    
-    // Configuration du serveur
-    servaddr.sin_family = AF_INET;
-    servaddr.sin_port = htons(PORT);
-    servaddr.sin_addr.s_addr = INADDR_ANY;
-    
-    printf("Entrez votre message : ");
-    fgets(buffer, BUFFER_SIZE, stdin);
-    buffer[strcspn(buffer, "\n")] = '\0';  // Supprime le retour à la ligne
-    
-    // Chiffrement du message avant envoi
-    cesarEncrypt(buffer, CESAR);
-    
-    // Envoi du message chiffré
-    sendto(sockfd, buffer, strlen(buffer), 0, (const struct sockaddr *)&servaddr, sizeof(servaddr));
-    printf("Message chiffré envoyé au serveur\n");
-    
-    // Réception de la réponse chiffrée
-    socklen_t len = sizeof(servaddr);
-    int n = recvfrom(sockfd, buffer, BUFFER_SIZE, 0, (struct sockaddr *)&servaddr, &len);
-    buffer[n] = '\0';
-    
-    // Déchiffrement de la réponse
-    cesarDecrypt(buffer, CESAR);
-    printf("Réponse du serveur déchiffrée : %s\n", buffer);
-    
-    close(sockfd);
+
+    // Configuration de l'adresse du serveur
+    adresse_serveur.sin_family = AF_INET;
+    adresse_serveur.sin_port = htons(12345); // Port du serveur
+    adresse_serveur.sin_addr.s_addr = inet_addr("127.0.0.1"); // Adresse IP du serveur
+
+    while (1) {
+        // Envoi du message au serveur
+        printf("Entrez votre message : ");
+        fgets(message_envoye, TAILLE_MESSAGE, stdin);
+        message_envoye[strcspn(message_envoye, "\n")] = '\0'; // Suppression du saut de ligne
+        chiffrer_cesar(message_envoye);
+        sendto(socket_desc, message_envoye, strlen(message_envoye), 0,
+               (struct sockaddr *)&adresse_serveur, taille_adresse);
+
+        // Réception de la réponse du serveur
+        ssize_t longueur = recvfrom(socket_desc, message_recu, TAILLE_MESSAGE - 1, 0,
+                                    NULL, NULL);
+        if (longueur > 0) {
+            message_recu[longueur] = '\0';
+            dechiffrer_cesar(message_recu);
+            printf("Réponse du serveur : %s\n", message_recu);
+        }
+    }
+
+    close(socket_desc);
     return 0;
 }
