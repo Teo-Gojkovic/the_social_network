@@ -104,6 +104,14 @@ void treatment(int *tableau, int size) {
 
     // Calculer et afficher la moyenne de tous les éléments
     printf("Moyenne : %d\n", calcul_moyenne(tableau, size));
+
+    // Trouver et afficher la valeur minimale
+    int minIndex = min(tableau, size);
+    printf("Valeur minimale : %d (à l'indice %d)\n", tableau[minIndex], minIndex);
+
+    // Trouver et afficher la valeur maximale
+    int maxIndex = max(tableau, size);
+    printf("Valeur maximale : %d (à l'indice %d)\n", tableau[maxIndex], maxIndex);
 }
 
 int main() {
