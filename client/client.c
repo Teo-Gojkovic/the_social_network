@@ -1,12 +1,12 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <time.h>
-#include <arpa/inet.h>
-#include <unistd.h>
+#include <stdio.h> // for printf
+#include <stdlib.h> // for exit
+#include <string.h> // for memset
+#include <time.h> // for srand and rand
+#include <arpa/inet.h> // for inet_addr
+#include <unistd.h> // for close
 
-#define PORT 1618
-#define NUM_COUNT 8
+#define PORT 1618 // Port number given by Guigui
+#define NUM_COUNT 8 
 #define MAX_VALUE 2023
 #define SERVER_IP "172.16.20.11" // PC Sarah
 //#define SERVER_IP "127.0.0.1"
@@ -15,7 +15,7 @@ int main() {
     int sockfd;
     struct sockaddr_in server_addr;
     int numbers[NUM_COUNT];
-    char buffer[1024];
+    char buffer[1024]; // Buffer size for sending data
 
     // Create socket
     if ((sockfd = socket(AF_INET, SOCK_DGRAM, 0)) < 0) {
