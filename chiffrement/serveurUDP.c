@@ -42,7 +42,7 @@ int main() {
     // Configuration de l'adresse du serveur
     adresse_serveur.sin_family = AF_INET;
     adresse_serveur.sin_addr.s_addr = INADDR_ANY;
-    adresse_serveur.sin_port = htons(12345); // Port du serveur
+    adresse_serveur.sin_port = htons(1618); // Port du serveur
 
     // Liaison du socket à l'adresse du serveur
     if (bind(socket_desc, (struct sockaddr *)&adresse_serveur, sizeof(adresse_serveur)) < 0) {

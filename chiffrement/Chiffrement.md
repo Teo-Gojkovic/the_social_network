@@ -34,13 +34,13 @@ gcc -o clientUDP clientUDP.c
 ```bash
 ./serveurUDP
 ```
-Le serveur sera en attente de messages sur le port **12345**.
+Le serveur sera en attente de messages sur le port **1618**.
 
 ### Lancer le client
 ```bash
 ./clientUDP
 ```
-Le client enverra des messages au serveur à l'adresse IP **127.0.0.1** sur le port **12345**.
+Le client enverra des messages au serveur à l'adresse IP **127.0.0.1** sur le port **1618**.
 
 ## Chiffrement de César
 Le chiffrement de César est un algorithme de substitution simple qui consiste à décaler chaque caractère d'un message d'un certain nombre de positions dans l'alphabet.
@@ -54,7 +54,7 @@ Dans ce projet, le décalage utilisé est de **3** positions.
 Le chiffrement et le déchiffrement sont gérés par des fonctions dédiées dans le code source.
 
 ## Remarques
-* Le port utilisé pour la communication est **12345**. Vous pouvez le modifier dans les fichiers source si nécessaire.
+* Le port utilisé pour la communication est **1618**. Vous pouvez le modifier dans les fichiers source si nécessaire.
 * Assurez-vous que le port choisi est ouvert sur votre pare-feu pour permettre la communication entre le client et le serveur.
 * Le programme est conçu pour une utilisation en local (localhost). Pour une utilisation sur un réseau, adaptez l'adresse IP en conséquence.
 

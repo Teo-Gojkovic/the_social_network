@@ -41,7 +41,7 @@ int main() {
 
     // Configuration de l'adresse du serveur
     adresse_serveur.sin_family = AF_INET;
-    adresse_serveur.sin_port = htons(12345); // Port du serveur
+    adresse_serveur.sin_port = htons(1618); // Port du serveur
     adresse_serveur.sin_addr.s_addr = inet_addr("127.0.0.1"); // Adresse IP du serveur
 
     while (1) {
