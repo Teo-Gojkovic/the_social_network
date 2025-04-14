@@ -42,18 +42,21 @@ int max(int *tableau) {
     return index;
 }
 
-int calcul_moyenne(int *tableau) {
+int calcul_moyenne(int *tableau, int size) {
     int somme = 0, count = 0;
-    
 
-    for (int i = 0; i < (sizeof(tableau) / sizeof(int))-1; i++) {
-        if (tableau[i] != -1){
+    for (int i = 0; i < size; i++) {
+        if (tableau[i] != -1) {
             somme += tableau[i];
             count++;
         }
     }
 
-    return (float)somme / count;
+    if (count == 0) {
+        return 0; // Éviter la division par zéro
+    }
+
+    return somme / count;
 }
 
 void IsolatioNumber(char *chaine, int *tableau) {
@@ -121,7 +124,7 @@ void treatment(int *tableau, int size) {
         tableau[max(tableau)] = -1;
     }
 
-    printf("Moyenne : %d\n", calcul_moyenne(tableau));
+    printf("Moyenne : %d\n", calcul_moyenne(tableau, size));
 }
 
 int main() {
